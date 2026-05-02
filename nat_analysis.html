@@ -173,28 +173,14 @@ As the total marks varied each year, we have normalized the topic-wise mark dist
  
  </script>
 
-<!-- ===== HEATMAP + PER-TOPIC TRENDS ===== -->
+<!-- ===== PER-TOPIC TRENDS ONLY ===== -->
 <div style="margin-top: 50px; background: rgba(0,0,0,0.6); padding: 30px; border-radius: 15px; border: 1px solid rgba(0,212,255,0.3);">
 
-  <!-- SECTION HEADING -->
-  <h2 style="color: #ff007f; margin-bottom: 8px;">Raw Data Heatmap — Marks by Topic & Year</h2>
-  <p style="font-size: 0.9rem; color: #aaa; margin-bottom: 20px;">Color intensity reflects percentage weight. — indicates topic was absent that year.</p>
+  <h2 style="color:#ff007f; margin-bottom:8px;">Per-Topic Trends — 5-Year View with Mean ± SD</h2>
+  <p style="font-size:0.9rem; color:#aaa; margin-bottom:16px;">
+    Shaded band = ±1 standard deviation. Dashed line = mean. Coloured line = actual values.
+  </p>
 
-  <!-- LEGEND -->
-  <div style="display:flex; gap:20px; flex-wrap:wrap; font-size:12px; color:#aaa; margin-bottom:16px;">
-    <span><span style="display:inline-block;width:12px;height:12px;background:#2c5282;border-radius:2px;margin-right:5px;"></span>High (&gt;30%)</span>
-    <span><span style="display:inline-block;width:12px;height:12px;background:#63b3ed;border-radius:2px;margin-right:5px;"></span>Mid (10–30%)</span>
-    <span><span style="display:inline-block;width:12px;height:12px;background:#1a3a5c;border-radius:2px;margin-right:5px;border:1px solid #4a90d9;"></span>Low (&lt;10%)</span>
-  </div>
-
-  <!-- HEATMAP TABLE -->
-  <div style="overflow-x:auto;">
-    <table id="heatmapTable2" style="width:100%;border-collapse:collapse;font-size:12px;" role="img" aria-label="Heatmap of BDOAA national round topic distribution 2021–2025"></table>
-  </div>
-
-  <!-- PER-TOPIC TRENDS -->
-  <h2 style="color:#ff007f; margin-top:40px; margin-bottom:8px;">Per-Topic Trends — 5-Year View with Mean ± SD</h2>
-  <p style="font-size:0.9rem; color:#aaa; margin-bottom:16px;">Shaded band = ±1 standard deviation. Dashed line = mean. Coloured line = actual values.</p>
   <div id="sparkGrid2" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px;"></div>
 
 </div>
@@ -220,54 +206,24 @@ As the total marks varied each year, we have normalized the topic-wise mark dist
     const m = mean(arr);
     return Math.sqrt(arr.map(x=>(x-m)**2).reduce((a,b)=>a+b,0)/arr.length);
   }
-  function heatStyle(val, max) {
-    if (val === 0) return 'background:rgba(255,255,255,0.03);color:#555;';
-    const t = val / max;
-    if (t < 0.2)  return 'background:#1a3a5c;color:#7bb8e8;';
-    if (t < 0.45) return 'background:#1e5f8a;color:#b3d9f5;';
-    if (t < 0.7)  return 'background:#2472a4;color:#daeeff;';
-    return 'background:#2c5282;color:#ebf8ff;font-weight:700;';
-  }
 
-  const maxVal = Math.max(...TOPICS.flatMap(t=>t.data));
-  const table = document.getElementById('heatmapTable2');
-
-  let html = `<thead><tr>
-    <th style="text-align:left;padding:8px 10px;color:#aaa;font-size:11px;border-bottom:1px solid rgba(255,255,255,0.1);">Topic</th>`;
-  YEARS.forEach(y => html += `<th style="padding:8px 10px;color:#aaa;font-size:11px;border-bottom:1px solid rgba(255,255,255,0.1);">${y}</th>`);
-  html += `<th style="padding:8px 10px;color:#aaa;font-size:11px;border-bottom:1px solid rgba(255,255,255,0.1);">Mean</th>
-           <th style="padding:8px 10px;color:#aaa;font-size:11px;border-bottom:1px solid rgba(255,255,255,0.1);">SD</th>
-  </tr></thead><tbody>`;
-
-  TOPICS.forEach(topic => {
-    const m = mean(topic.data);
-    const s = sd(topic.data);
-    html += `<tr><td style="padding:6px 10px;color:#e0e0e0;font-size:11px;white-space:nowrap;">${topic.name}</td>`;
-    topic.data.forEach(val => {
-      const style = heatStyle(val, maxVal);
-      const display = val === 0 ? '—' : val.toFixed(1)+'%';
-      html += `<td style="padding:6px 8px;text-align:center;border-radius:4px;font-size:11px;${style}">${display}</td>`;
-    });
-    html += `<td style="padding:6px 10px;text-align:center;color:#e0e0e0;font-size:11px;font-weight:600;">${m.toFixed(1)}%</td>`;
-    html += `<td style="padding:6px 10px;text-align:center;color:#888;font-size:11px;">${s.toFixed(1)}</td>`;
-    html += '</tr>';
-  });
-
-  html += '</tbody>';
-  table.innerHTML = html;
-
-  // Sparklines
   const grid = document.getElementById('sparkGrid2');
+
   TOPICS.filter(t => mean(t.data) > 0).forEach(topic => {
     const m = mean(topic.data);
     const s = sd(topic.data);
     const id = 'spark_' + topic.name.replace(/\W/g,'_');
+
     const card = document.createElement('div');
     card.style.cssText = 'background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px;';
     card.innerHTML = `
       <div style="font-size:11px;font-weight:600;color:#e0e0e0;margin-bottom:8px;line-height:1.3;">${topic.name}</div>
-      <div style="position:relative;height:90px;"><canvas id="${id}" role="img" aria-label="Trend for ${topic.name}"></canvas></div>
-      <div style="font-size:10px;color:#666;margin-top:6px;">Mean: ${m.toFixed(1)}% &nbsp;|&nbsp; SD: ${s.toFixed(1)}</div>
+      <div style="position:relative;height:120px;">
+        <canvas id="${id}" role="img" aria-label="Trend for ${topic.name}"></canvas>
+      </div>
+      <div style="font-size:10px;color:#666;margin-top:6px;">
+        Mean: ${m.toFixed(1)}% &nbsp;|&nbsp; SD: ${s.toFixed(1)}
+      </div>
     `;
     grid.appendChild(card);
 
@@ -285,8 +241,16 @@ As the total marks varied each year, we have normalized the topic-wise mark dist
           ]
         },
         options: {
-          responsive:true, maintainAspectRatio:false,
-          plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: ctx => ctx.datasetIndex===3 ? ctx.parsed.y.toFixed(1)+'%' : null } } },
+          responsive:true,
+          maintainAspectRatio:false,
+          plugins:{
+            legend:{display:false},
+            tooltip:{
+              callbacks:{
+                label: ctx => ctx.datasetIndex===3 ? ctx.parsed.y.toFixed(1)+'%' : null
+              }
+            }
+          },
           scales:{
             x:{ ticks:{font:{size:9},color:'#888'}, grid:{display:false} },
             y:{ min:0, ticks:{font:{size:9},color:'#888',callback:v=>v+'%'}, grid:{color:'rgba(255,255,255,0.05)'} }
@@ -295,6 +259,7 @@ As the total marks varied each year, we have normalized the topic-wise mark dist
       });
     });
   });
+
 })();
 </script>
 
