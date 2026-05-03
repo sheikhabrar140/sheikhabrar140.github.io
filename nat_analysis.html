@@ -4,10 +4,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>National Analysis | Sheikh Abrar</title>
-
+ 
   <link rel="icon" type="image/png" href="https://i.postimg.cc/XYyYDGKX/telescope-icon-design-template-in-white-background-vector.jpg">
-
-  <!-- Standard Fonts from your template -->
+ 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -15,6 +14,149 @@
   
   <link rel="stylesheet" href="styles.css">
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+ 
+  <style>
+    /* ============================================================
+       MOBILE RESPONSIVE FIXES — nat_analysis.html
+       Desktop layout is completely unchanged.
+       All changes activate ONLY at ≤ 768px.
+    ============================================================ */
+ 
+    /* --- Navbar: horizontal scroll on very small screens --- */
+    @media (max-width: 768px) {
+ 
+      /* Navbar */
+      .navbar {
+        overflow-x: auto;
+        justify-content: flex-start;
+        padding: 12px 0;
+        -webkit-overflow-scrolling: touch;
+      }
+ 
+      .nav-list {
+        gap: 10px;
+        flex-wrap: nowrap;
+        padding: 0 12px;
+        white-space: nowrap;
+      }
+ 
+      .nav-link {
+        padding: 8px 14px;
+        font-size: 0.72rem;
+      }
+ 
+      /* Main container */
+      main {
+        padding: 90px 14px 40px 14px !important;
+        max-width: 100% !important;
+      }
+ 
+      /* Page title */
+      .analysis-header h1 {
+        font-size: 1.5rem !important;
+        line-height: 1.3;
+      }
+ 
+      /* Author line */
+      .analysis-header p[style*="1.2rem"] {
+        font-size: 0.95rem !important;
+      }
+ 
+      /* Section headings (h2) inside analysis-header */
+      .analysis-header h2 {
+        font-size: 1.15rem !important;
+        margin-top: 1rem;
+      }
+ 
+      /* Body paragraphs */
+      .analysis-header p {
+        font-size: 0.92rem !important;
+        line-height: 1.65;
+      }
+ 
+      /* Topic breakdown detail text */
+      .analysis-header div[style*="line-height: 1.8"] p {
+        font-size: 0.88rem !important;
+        margin-bottom: 10px;
+      }
+ 
+      /* HR divider */
+      hr {
+        margin: 24px 0 !important;
+      }
+ 
+      /* Chart wrapper boxes */
+      div[style*="background: rgba(0, 0, 0, 0.6)"],
+      div[style*="background: rgba(0,0,0,0.6)"] {
+        padding: 14px !important;
+        border-radius: 10px !important;
+        overflow: hidden;
+      }
+ 
+      /* Chart canvas — prevent overflow */
+      canvas#natAnalysisChart {
+        max-width: 100% !important;
+        height: auto !important;
+      }
+ 
+      /* Chart.js legend — move below chart on mobile */
+      /* (handled via chartjs options below, but CSS safety net) */
+ 
+      /* Caption text under chart */
+      div[style*="background: rgba(0, 0, 0, 0.6)"] p,
+      div[style*="background: rgba(0,0,0,0.6)"] p {
+        font-size: 11px !important;
+      }
+ 
+      /* Per-topic trends section */
+      div[style*="margin-top: 50px"] {
+        margin-top: 30px !important;
+        padding: 14px !important;
+      }
+ 
+      div[style*="margin-top: 50px"] h2 {
+        font-size: 1.1rem !important;
+      }
+ 
+      div[style*="margin-top: 50px"] p {
+        font-size: 0.82rem !important;
+      }
+ 
+      /* Spark grid: 2 columns on mobile */
+      #sparkGrid2 {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 10px !important;
+      }
+ 
+      /* Spark cards */
+      #sparkGrid2 > div {
+        padding: 10px !important;
+      }
+ 
+      #sparkGrid2 > div > div[style*="font-size:11px"] {
+        font-size: 10px !important;
+      }
+ 
+      #sparkGrid2 > div > div[style*="height:120px"] {
+        height: 90px !important;
+      }
+ 
+      #sparkGrid2 > div > div[style*="font-size:10px"] {
+        font-size: 9px !important;
+      }
+    }
+ 
+    /* Extra small phones */
+    @media (max-width: 400px) {
+      #sparkGrid2 {
+        grid-template-columns: 1fr 1fr !important;
+      }
+ 
+      .analysis-header h1 {
+        font-size: 1.25rem !important;
+      }
+    }
+  </style>
 </head>
 <body>
   <canvas id="cosmos-engine"></canvas>
@@ -22,7 +164,7 @@
   <div class="aurora-wrap">
     <div class="aurora-wave"></div>
   </div>
-
+ 
   <nav class="navbar">
     <ul class="nav-list">
       <li><a href="index.html" class="nav-link">HOME</a></li>
@@ -35,8 +177,7 @@
       <li><a href="contact.html" class="nav-link">CONTACT</a></li>
     </ul>
   </nav>
-
-  <!-- Main container - font family style removed to use styles.css default -->
+ 
   <main style="padding: 120px 20px 50px 20px; max-width: 1200px; margin: auto; color: white;"> 
     
     <section class="analysis-header">
@@ -46,7 +187,7 @@
 <p style="font-size: 1.2rem; color: #00d4ff; margin-bottom: 30px; text-align: center;">
   Sheikh Hasin Abrar Alvi, Tasdik Ahmed Tonmoy
 </p>
-
+ 
 <br>
 <br>
 <br>
@@ -56,73 +197,68 @@
       <p style="line-height: 1.6; margin-bottom: 20px;">
         Bangladesh Olympiad on Astronomy and Astrophysics Committee (BDOAAC) is recognized as the National Olympiad Authority that organizes the regional and national olympiads on astronomy and astrophysics (A&A), hosts the national A&A camp in Bangladesh, and sends students to the International Olympiad on A&A (IOAA).      
        </p>
-
+ 
       <h2 style="color: #ff007f;">National Round</h2>
       <br>
       <p style="line-height: 1.6; margin-bottom: 20px;">
         The National Round is the 2nd round of BDOAA, where students selected from the Regional Round can participate. 
         It is a subjective exam consisting of short, medium and long answer questions that require a deeper understanding of physics and astronomy.
       </p>
-
+ 
       <h2 style="color: #ff007f;">Topic Distribution Over Years</h2>
       <br>
       <p style="line-height: 1.6; margin-bottom: 30px;">
         We have analyzed questions from the past five years of the National Rounds of BDOAA. The topics have been broadly categorized into the following areas: Astronomical Geometry, Cosmology, Mechanics & Celestial Mechanics, Radiation Mechanics, Stellar Astrophysics, Photometry, Positional Astronomy, Astronomical Timekeeping, Optics & Telescope, Data Analysis, and Observation.
 As the total marks varied each year, we have normalized the topic-wise mark distribution into generalized percentages.
-
+ 
       </p>
-
-
+ 
+ 
   <h2 style="color: #ff007f; margin-bottom: 20px;">Detailed Topic Breakdown</h2>
-
+ 
   <p style="line-height: 1.6; margin-bottom: 30px; color: #ccc;">
     The following sections outline the specific conceptual areas generally encompassed by the BDOAA National Round questions.
   </p>
-
+ 
   <div style="color: #e0e0e0; line-height: 1.8; font-size: 0.95rem;">
-
+ 
     <p><strong style="color:#E7E9ED;">Astronomy & Geometry:</strong> Planetary Configuration, Eclipse, Retrograde Motion, Analemma, Parallax.</p>
-
+ 
     <p><strong style="color:#4BC0C0;">Cosmology:</strong> Hubble-Lemaitre Law, Redshift, Scale Factor, Critical Density.</p>
-
-    <p><strong style="color:#9966FF;">Celestial Mechanics:</strong> Newton’s Law of Gravitation, Escape Velocity, Objects on Elliptic and Parabolic Orbit, Angular Momentum and Energy Conservation, Kepler’s Laws, Hohmann Transfer Orbit, Tidal Forces, Lagrange Points, Roche’s Limit.</p>
-
-    <p><strong style="color:#FFCE56;">Stellar Radiation:</strong> Luminosity, Flux, Flux Density, Specific Intensity, Surface Brightness, Blackbody Radiation, Wien’s Law, Emissivity, Albedo, Temperature Scales.</p>
-
-    <p><strong style="color:#FF6384;">Stellar Astrophysics:</strong> Stellar Properties, Stellar Evolution, Jean’s Criterion (Mass/Radius), Metallicity, Initial Mass Function, Stellar Interiors, Thermodynamics.</p>
-
+ 
+    <p><strong style="color:#9966FF;">Celestial Mechanics:</strong> Newton's Law of Gravitation, Escape Velocity, Objects on Elliptic and Parabolic Orbit, Angular Momentum and Energy Conservation, Kepler's Laws, Hohmann Transfer Orbit, Tidal Forces, Lagrange Points, Roche's Limit.</p>
+ 
+    <p><strong style="color:#FFCE56;">Stellar Radiation:</strong> Luminosity, Flux, Flux Density, Specific Intensity, Surface Brightness, Blackbody Radiation, Wien's Law, Emissivity, Albedo, Temperature Scales.</p>
+ 
+    <p><strong style="color:#FF6384;">Stellar Astrophysics:</strong> Stellar Properties, Stellar Evolution, Jean's Criterion (Mass/Radius), Metallicity, Initial Mass Function, Stellar Interiors, Thermodynamics.</p>
+ 
     <p><strong style="color:#7BC225;">Optics & Telescope:</strong> Refraction/Reflection, Lenses, Telescope Mounting, Focal Length, Aperture, Eyepiece, Magnification, Field of View (FOV), Resolution.</p>
-
+ 
     <p><strong style="color:#36A2EB;">Positional Astronomy:</strong> Spherical Geometry (Cosine/Sine Law), Celestial Sphere, Coordinate Transformations (Horizontal, Equatorial, Ecliptic).</p>
-
+ 
     <p><strong style="color:#FF9F40;">Astronomical Timekeeping:</strong> Sidereal Time, Synodic Time, Local Sidereal Time, Mean Solar Time.</p>
-
+ 
   </div>
 </section>
-
-
-
-
-
-
-
-
-
-
+ 
+ 
     <hr style="border: 0; height: 1px; background: linear-gradient(to right, transparent, #00d4ff, transparent); margin-bottom: 40px;">
-
+ 
     <div style="background: rgba(0, 0, 0, 0.6); padding: 30px; border-radius: 15px; border: 1px solid rgba(0, 212, 255, 0.3);">
       <canvas id="natAnalysisChart"></canvas>
-
+ 
    <p style="text-align: center; margin-top: 10px; font-size: 14px; color: #aaa;">
      Topic Distribution of BDOAA National Rounds(2021-2025)
    </p>
-       </div>
+    </div>
  
   <script src="script.js"></script>
-
+ 
 <script>
     const ctx = document.getElementById('natAnalysisChart').getContext('2d');
+ 
+    /* Detect mobile for chart legend position */
+    const isMobile = window.innerWidth <= 768;
     
     const data = {
       labels: ['2021', '2022', '2023', '2024', '2025'],
@@ -140,8 +276,7 @@ As the total marks varied each year, we have normalized the topic-wise mark dist
         { label: 'Observation', data: [13.21, 0, 14.29, 19.61, 19.72], backgroundColor: '#FFCE56' }
       ]
     };
-
-
+ 
     new Chart(ctx, {
       type: 'bar',
       data: data,
@@ -149,42 +284,44 @@ As the total marks varied each year, we have normalized the topic-wise mark dist
         responsive: true,
         plugins: {
           legend: {
-            position: 'right',
+            position: isMobile ? 'bottom' : 'right',
             labels: { 
               color: '#e0e0e0',
-              // Font setting removed to use Chart.js/System defaults
+              font: { size: isMobile ? 10 : 12 },
+              boxWidth: isMobile ? 12 : 40,
+              padding: isMobile ? 8 : 10,
             }
           }
         },
         scales: {
           x: { 
             stacked: true, 
-            ticks: { color: '#e0e0e0' },
+            ticks: { color: '#e0e0e0', font: { size: isMobile ? 10 : 12 } },
             grid: { color: 'rgba(255,255,255,0.1)' } 
           },
           y: { 
             stacked: true, 
-            ticks: { color: '#e0e0e0', callback: (v) => v + '%' },
+            ticks: { color: '#e0e0e0', font: { size: isMobile ? 10 : 12 }, callback: (v) => v + '%' },
             grid: { color: 'rgba(255,255,255,0.1)' }
           }
         }
       }
     });
+</script>
  
- </script>
-
+ 
 <!-- ===== PER-TOPIC TRENDS ONLY ===== -->
 <div style="margin-top: 50px; background: rgba(0,0,0,0.6); padding: 30px; border-radius: 15px; border: 1px solid rgba(0,212,255,0.3);">
-
+ 
   <h2 style="color:#ff007f; margin-bottom:8px;">Per-Topic Trends — 5-Year View with Mean ± SD</h2>
   <p style="font-size:0.9rem; color:#aaa; margin-bottom:16px;">
     Shaded band = ±1 standard deviation. Dashed line = mean. Coloured line = actual values.
   </p>
-
+ 
   <div id="sparkGrid2" style="display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px;"></div>
-
+ 
 </div>
-
+ 
 <script>
 (function() {
   const YEARS = [2021,2022,2023,2024,2025];
@@ -200,20 +337,20 @@ As the total marks varied each year, we have normalized the topic-wise mark dist
     { name: 'Data Analysis',        data: [35.85, 0, 26.79, 15.69, 0],    color: '#4BC0C0' },
     { name: 'Observation',          data: [13.21, 0, 14.29, 19.61, 19.72],color: '#FFCE56' }
   ];
-
+ 
   function mean(arr) { return arr.reduce((a,b)=>a+b,0)/arr.length; }
   function sd(arr) {
     const m = mean(arr);
     return Math.sqrt(arr.map(x=>(x-m)**2).reduce((a,b)=>a+b,0)/arr.length);
   }
-
+ 
   const grid = document.getElementById('sparkGrid2');
-
+ 
   TOPICS.filter(t => mean(t.data) > 0).forEach(topic => {
     const m = mean(topic.data);
     const s = sd(topic.data);
     const id = 'spark_' + topic.name.replace(/\W/g,'_');
-
+ 
     const card = document.createElement('div');
     card.style.cssText = 'background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.08);border-radius:10px;padding:14px;';
     card.innerHTML = `
@@ -226,7 +363,7 @@ As the total marks varied each year, we have normalized the topic-wise mark dist
       </div>
     `;
     grid.appendChild(card);
-
+ 
     requestAnimationFrame(() => {
       const ctx2 = document.getElementById(id).getContext('2d');
       new Chart(ctx2, {
@@ -259,12 +396,10 @@ As the total marks varied each year, we have normalized the topic-wise mark dist
       });
     });
   });
-
+ 
 })();
 </script>
-
-    
-
-
+ 
+</main>
 </body>
 </html>
